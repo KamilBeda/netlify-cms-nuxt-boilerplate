@@ -11,3 +11,21 @@
     </section>
   </main>
 </template>
+
+<script>
+export default {
+  name: 'PageIndex',
+  mounted() {
+    // redirect back to cms after login
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', (user) => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/'
+          })
+        }
+      })
+    }
+  },
+}
+</script>
